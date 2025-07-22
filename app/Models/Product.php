@@ -13,6 +13,13 @@ class Product extends Model
 {
     use HasFactory;
 
+    public function category(){
+       return $this->belongsTo(Category::class,'category_id','id');
+    }
+     public function store(){
+       return  $this->belongsTo(Store::class,'store_id','id');
+    }
+
     // دي داله بستخدمها لما احتاج اعمل حاجه دايما كل مستخدم المودل اطبقها عليه
     // تضيف "نطاق عام" (global scope) لجميع الاستعلامات على هذا الموديل
     protected static function booted(){

@@ -16,8 +16,22 @@ class Category extends Model
     protected $fillable = [
         'name','parent_id','description','image','status','slug'
     ];
+
+    public function products(){
+       return $this->hasMany(Product::class,'category_id','id');
+    }
+
+    public function parent(){
+      return  $this->belongsTo(Category::class,'parent_id','id')
+      ->withDefault([
+      'name'=>'main'
+      ]);
+    }
+    public function childrens(){
+        return $this->hasMany(Category::class,'parent_id','id');
+    }
     public function scopeActive(Builder $builder){
-        $builder->where('status','=','active');
+       return $builder->where('status','=','active');
     }
     public function scopeFilter(Builder $builder,$filters){
          if($filters['name'] ?? false ){
