@@ -19,12 +19,12 @@
         </div>
         <div class="form-group">
             <label for="">category parent</label>
-            <select name="parent_id" class="form-control form-select">
-                {{-- @foreach ($parents as $parent)
-                    <option value="{{ $parent->id }}" @selected(old('parent_id',$parent->parent_id)==$parent->id)>{{$parent->name}}</option>
-                @endforeach --}}
+            <select name="category_id" class="form-control form-select">
+                @foreach ($parents as $parent)
+                    <option value="{{ $parent->id }}" @selected(old('category_id',$parent->category_id)==$parent->id)>{{$parent->name}}</option>
+                @endforeach
             </select>
-             @error('parent_id')
+             @error('category_id')
             <div class="text-danger">
                 {{$message }}
             </div>      
@@ -42,6 +42,21 @@
                 <img src="{{ asset('storage/'.$product->image) }}" alt="" height="60">
             @endif
             
+        </div>
+          <div class="form-group">
+            <label for="">price</label>
+            {{-- <textarea type="text" name="description"  class="form-control">{{old('description',$category->description)}}</textarea> --}}
+            <x-form.input name='price' :value="$product->price" />       
+        </div>
+          <div class="form-group">
+            <label for="">compare_price</label>
+            {{-- <textarea type="text" name="description"  class="form-control">{{old('description',$category->description)}}</textarea> --}}
+            <x-form.input name='compare_price' :value="$product->compare_price" />       
+        </div>
+           <div class="form-group">
+            <label for="">tag</label>
+            {{-- <textarea type="text" name="description"  class="form-control">{{old('description',$category->description)}}</textarea> --}}
+            <x-form.input name='tags' :value="$tags" />       
         </div>
     <div class="form-group">
         <label for="">status</label>

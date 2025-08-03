@@ -12,12 +12,23 @@ use Illuminate\Support\Facades\Auth;
 class Product extends Model
 {
     use HasFactory;
+    protected $guarded=[];
 
     public function category(){
        return $this->belongsTo(Category::class,'category_id','id');
     }
      public function store(){
        return  $this->belongsTo(Store::class,'store_id','id');
+    }
+    public function tags(){
+        return $this->belongsToMany(
+        tag::class,
+        'product_tag',
+        'product_id',
+        'tag_id',
+        'id',
+        'id'
+        );
     }
 
     // دي داله بستخدمها لما احتاج اعمل حاجه دايما كل مستخدم المودل اطبقها عليه
