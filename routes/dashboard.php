@@ -22,3 +22,4 @@ Route::delete('/categories/{category}/force-delete',[CategoriesController::class
 Route::resource('categories',CategoriesController::class);
 Route::resource('products',ProductsController::class);
 });
+
