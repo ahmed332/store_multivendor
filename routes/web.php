@@ -24,4 +24,4 @@ require __DIR__.'/auth.php';
 require __DIR__.'/dashboard.php';
 
 // Route::get('/',[HomeController::class,'index'])->name('home');
-Route::get('dashboard',[DashbordController::class,'index'])->name('dashboard')->middleware(['auth']);
+// Route::get('dashboard',[DashbordController::class,'index'])->name('dashboard')->middleware(['auth']);
