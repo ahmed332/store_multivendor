@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Login - ShopGrids Bootstrap 5 eCommerce HTML Template.</title>
+    <title>{{ $title }}</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon.svg') }}" />
@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/tiny-slider.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/glightbox.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}" />
+    @stack('style')
 
 </head>
 
@@ -506,6 +507,7 @@
     <script src="{{ asset('assets/js/tiny-slider.js') }}"></script>
     <script src="{{ asset('assets/js/glightbox.min.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    @stack('script')
 </body>
 
 </html>
