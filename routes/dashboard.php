@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 // });
  Route::get('dashboard',[DashbordController::class,'index'])->name('dashboard')->middleware(['auth','CheckUserType:admin,super_admin']);
 Route::group(
-    ['middleware'=>['auth','CheckUserType:admin,super_admin'],
+    ['middleware'=>['auth','CheckUserType:admin,super_admin,user'],
     'as'=>'dashboard.',
     'prefix'=>'dashboard'
     ]

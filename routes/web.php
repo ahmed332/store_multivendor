@@ -10,6 +10,7 @@ Route::get('/', [HomeController::class,'index'])->name('home');
 Route::get('/products',[ProductController::class,'index'])->name('product.index');
 Route::get('/products/{product:slug}',[ProductController::class,'show'])->name('product.show');
 
+
 // Route::get('/dashboard', [DashbordController::class,'index'])
 // ->middleware(['auth', 'verified'])
 // ->name('dashboard');
