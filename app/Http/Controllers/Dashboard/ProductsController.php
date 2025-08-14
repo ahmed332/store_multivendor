@@ -4,8 +4,12 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
 // use Illuminate\Support\Facades\Auth as FacadesAuth;
 // use Illuminate\Support\Facades\Auth as SupportFacadesAuth;
 
@@ -55,15 +59,34 @@ class ProductsController extends Controller
     {
       
             $product=Product::findOrFail($id);
+            $tags = implode(',',$product->tags()->pluck('name')->toArray());
         
-        return view('dashboard.products.edit',compact('product'));
+        return view('dashboard.products.edit',compact('product','tags'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Product $product)
     {
+        $product->update($request->except('tag'));
+        $tags= explode(',',$request->post('tags'));
+        $tag_ids=[];
+        $saved_tags=Tag::all();
+        foreach($tags as $t_name){
+            $slug = Str::slug($t_name);
+            $tag=$saved_tags->where('slug',$slug)->first();
+            if(!$tag){
+                Tag::firstOrCreate([
+                    'name'=>$t_name,
+                    'slug'=>$slug
+                ]);
+            }
+            $tag_ids[]=$tag->id;
+            $product->tags()->sync($tag_ids);
+        }
+        return redirect()->route('dashboard.products.index')
+        ->with('success','product updated');
     }
 
     /**
@@ -72,5 +95,18 @@ class ProductsController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+      protected function uploadImage(Request $request){
+         if(!$request->hasFile('image')){
+            return;
+         }
+
+            $file = $request->file('image') ;//uploadedfile object
+            // $file->getClientOriginalName(); //return origin file name
+           $path = $file->store('uploads',[
+                'disk'=>'public'
+            ]);
+           return $path;
+        
     }
 }

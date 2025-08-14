@@ -12,10 +12,11 @@
       </div>
   @endif
   <div class="form-group">
+                    <div class="form-group">
 
-           <x-form.input name='name' label='category name' :value=" $product->name "/>
+           <x-form.input name='name' label='product name' :value=" $product->name "/>
            {{-- <x-form.input name='image' type='file'  accept='image/*' /> --}}
-
+                    </div>
         </div>
         <div class="form-group">
             <label for="">category parent</label>
@@ -43,7 +44,23 @@
             @endif
             
         </div>
-    <div class="form-group">
+    
+        <div class="form-group">
+
+           <x-form.input name='price' label='price' :value=" $product->price "/>
+           {{-- <x-form.input name='image' type='file'  accept='image/*' /> --}}
+                    </div>
+                    <div class="form-group">
+
+           <x-form.input name='compare_price' label='compare_price' :value=" $product->compare_price "/>
+           {{-- <x-form.input name='image' type='file'  accept='image/*' /> --}}
+                    </div>
+                    <div class="form-group">
+
+           <x-form.input name='tags' label='Tag' :value="$tags"/>
+           {{-- <x-form.input name='image' type='file'  accept='image/*' /> --}}
+                    </div>
+                    <div class="form-group">
         <label for="">status</label>
         <div>
         <x-form.radio name='status' :checked="$product->status" :options="['active'=>'active','inactive'=>'inactive']" />

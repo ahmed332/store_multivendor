@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('auth')->prefix('dashboard')->as('dashboard')->group(function(){
 
 // });
- Route::get('dashboard',[DashbordController::class,'index'])->name('dashboard')->middleware(['auth','CheckUserType:admin,super_admin']);
+ Route::get('dashboard',[DashbordController::class,'index'])->name('dashboard')->middleware(['auth','CheckUserType:admin,super_admin,user']);
 Route::group(
     ['middleware'=>['auth','CheckUserType:admin,super_admin,user'],
     'as'=>'dashboard.',
@@ -21,7 +21,7 @@ Route::group(
     ,function(){
 Route::get('profile',[ProfileController::class,'edit'])->name('profile.edit');
 Route::patch('profile',[ProfileController::class,'update'])->name('profile.update');
-Route::get('/', [DashbordController::class,'index'])->name('dashboard');
+// Route::get('/', [DashbordController::class,'index'])->name('dashboard');
 // Route::get('/', [DashbordController::class,'index'])->name('dashboard');
 Route::get('/categories/trash',[CategoriesController::class,'trash'])->name('categories.trash');
 Route::put('/categories/{category}/restore',[CategoriesController::class,'restore'])->name('categories.restore');

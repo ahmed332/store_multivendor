@@ -2,7 +2,7 @@
     <!--begin::Sidebar Brand-->
     <div class="sidebar-brand">
       <!--begin::Brand Link-->
-      <a href="./index.html" class="brand-link">
+      <a href="./" class="brand-link">
         <!--begin::Brand Image-->
         <img
           src="../../dist/assets/img/AdminLTELogo.png"
@@ -11,11 +11,15 @@
         />
         <!--end::Brand Image-->
         <!--begin::Brand Text-->
-        <span class="brand-text fw-light">{{Auth::user()->name}}</span>
+        <form action="{{ route("dashboard.profile.edit") }}" method="post">
+          @csrf
+                  <button class="brand-text fw-light">{{Auth::user()->name}}</button>
+
+        </form>
         <span class="brand-text fw-light">|</span>
         <form action="{{ route('logout') }}" method="post">
           @csrf
-                  <button type="submit">log out </button>
+                  <button type="submit">logout </button>
 
 
         </form>

@@ -1,5 +1,5 @@
  @props([
- 'type'=>'text','name','value'=>'','label'=>''
+ 'type'=>'text','name','attributes','value'=>'','label'=>''
  ])
  
  <label for="">{{$label}}</label>

@@ -14,7 +14,7 @@ class ProfileController extends Controller
     public function edit(){
         $user =Auth::user();
         return view('dashboard.profile.edit',[
-            'users'=>$user,
+            'user'=>$user,
             'countries'=>Countries::getNames(),
             'locales'=>Languages::getNames()
         ]);
@@ -26,6 +26,7 @@ class ProfileController extends Controller
             'last_name'=>['required','string','max:255'],
             'birthday'=>['nullable','date','before:today'],
             'gender'=>['in:male,female'],
+            'country'=>['required','string']
         ]);
         $user =$request->user();
         $profile= $user->profile;

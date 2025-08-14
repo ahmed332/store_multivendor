@@ -3,58 +3,59 @@
 @section('breadcamp')
     @parent
     <li class="breadcrumb-item"><a href="#">Edit Profile</a></li>
-
 @endsection
+
 @section('content')
-    <form action="{{ route('dashboard.products.update') }}" method="post" enctype="multipart/form-data">
+    <x-alert type=success />
+    <form action="{{ route('dashboard.profile.update') }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('patch')
+
         <div class="form-row">
             <div class="col-md-6">
-                <x-form.input name="first_name" lable = 'first name' :value="$user->profile->first_name">
+                <x-form.input name="first_name" label="First Name" :value="$user->profile->first_name ?? ''" />
             </div>
-             <div class="col-md-6">
-                <x-form.input name="first_name" lable = 'last name' :value="$user->profile->last_name">
+            <div class="col-md-6">
+                <x-form.input name="last_name" label="Last Name" :value="$user->profile->last_name ?? ''" />
             </div>
         </div>
+
         <div class="form-row">
             <div class="col-md-6">
-                <x-form.input name="birthday" lable = 'birthday' :value="$user->profile->birthday">
+                <x-form.input name="birthday" type="date" label="Birthday" :value="$user->profile->birthday ?? ''" />
             </div>
             <div class="col-md-6">
-                <x-form.radio name="gender" lable = 'gender' :options="['male'=>'male','female'=>'female']" :checked="$user->profile->gender">
+                <x-form.radio name="gender" label="Gender" :options="['mail'=>'mail','female'=>'Female']" :checked="$user->profile->gender ?? ''" />
             </div>
-            
         </div>
-         <div class="form-row">
+
+        <div class="form-row">
             <div class="col-md-6">
-                <x-form.input name="street_address" lable = 'street_address' :value="$user->profile->street_address">
+                <x-form.input name="street_address" label="Street Address" :value="$user->profile->street_address ?? ''" />
             </div>
             <div class="col-md-6">
-                <x-form.input name="city" lable = 'city'  :value="$user->profile->city">
+                <x-form.input name="city" label="City" :value="$user->profile->city ?? ''" />
             </div>
-            
         </div>
-         <div class="form-row">
+
+        <div class="form-row">
             <div class="col-md-6">
-                <x-form.input name="state" lable = 'state'  :value="$user->profile->state">
+                <x-form.input name="state" label="State" :value="$user->profile->state ?? ''" />
             </div>
             <div class="col-md-6">
-                <x-form.input name="postal_code" lable = 'postal_code' :value="$user->profile->postal_code">
+                <x-form.input name="postal_code" label="Postal Code" :value="$user->profile->postal_code ?? ''" />
             </div>
-            
         </div>
-         <div class="form-row">
+
+        <div class="form-row">
             <div class="col-md-6">
-                <x-form.select name="country" :options="$countries" lable = 'country' :selected="$user->profile->country">
+                <x-form.select name="country" label="Country" :options="$countries"  :selected="$user->profile->country ?? ''" />
             </div>
-           <div class="col-md-6">
-                <x-form.select name="local" :options="$locales" lable = 'locale' :selected="$user->profile->locale">
+            <div class="col-md-6">
+                <x-form.select name="locale" :options="$locales" label="Locale" :selected="$user->profile->locale ?? ''" />
             </div>
-            
         </div>
-        @include('dashboard.products._form',['btn'=>'ubdate'])
+
+        <button type="submit" class="btn btn-primary">Save</button>
     </form>
-
-
-   @endsection
+@endsection

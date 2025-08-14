@@ -18,10 +18,22 @@ class Product extends Model
     ];
  
     public function category(){
-       return $this->belongsTo(Category::class,'category_id','id');
+       return $this->belongsTo(Category::class,'category_id','id')
+       ->withDefault(['name'=>'no category']);
     }
      public function store(){
        return  $this->belongsTo(Store::class,'store_id','id');
+    }
+     
+    public function tags(){
+        return $this->belongsToMany(
+            Tag::class,//related model
+            'product_tag',//piovit table
+            'product_id',//fk for curent model
+            'tag_id',//fk for the related model
+            'id',//pk for current model
+            'id',//ph fo related model
+        );
     }
 
     // دي داله بستخدمها لما احتاج اعمل حاجه دايما كل مستخدم المودل اطبقها عليه

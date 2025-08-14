@@ -57,7 +57,8 @@
                             <td><img src="{{asset( 'storage/'. $product->image) }} " height="50px" width="50px" alt=""></td>
                             <td>{{$product->id}}</td>
                             <td>{{$product->name}}</td>
-                            <td>{{$product->category->name}}</td>
+                            {{-- <td>{{$product->category->name ?? 'No Category'}}</td> --}}
+                            <td>{{$product->category->name }}</td>
                             <td>{{$product->store->name}}</td>
                             <td>{{$product->status}}</td>
                             <td>{{$product->created_at}}</td>
