@@ -15,9 +15,10 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('cookie_id');
             $table->foreignId('user_id')
-            ->constrained('users')
-            ->nullabale()
-            ->cascadeOnDelete();
+             ->nullable() 
+             ->constrained('users')
+             ->cascadeOnDelete();
+
             $table->foreignId('product_id')
             ->constrained('products')
             ->cascadeOnDelete();

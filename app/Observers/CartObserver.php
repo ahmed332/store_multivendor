@@ -10,9 +10,10 @@ class CartObserver
     /**
      * Handle the cart "created" event.
      */
-    public function created(Cart $cart): void
+    public function creating(Cart $cart): void
     {
         $cart->id=Str::uuid();
+        $cart->cookie_id=Cart::getCookieId();
     }
 
     /**

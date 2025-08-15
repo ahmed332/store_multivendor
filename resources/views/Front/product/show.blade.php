@@ -46,9 +46,9 @@
                                     {{ $product->category->name }}</a></p>
                             <h3 class="price">{{App\Helpers\Currency::format($product->price)}}<span>{{ App\Helpers\Currency::format($product->compare_price)}}</span></h3>
                             <p class="info-text">{{$product->description}}</p>
-                            <form action="{{ route(cart.store) }}" method="post">
+                            <form action="{{ route('cart.store') }}" method="post">
                                 @csrf
-                                <input type="hidden" name="product_id" value="$product->id">
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
                             
                             <div class="row">
                                 <div class="col-lg-4 col-md-4 col-12">

@@ -55,11 +55,11 @@
                  <div class="cart-single-list">
                 <div class="row align-items-center">
                     <div class="col-lg-1 col-md-1 col-12">
-                        <a href="{{ route('product.show',$item->slug) }}">
+                        <a href="{{ route('product.show',$item->product->slug) }}">
                             <img src="{{ $item->product->image_url }}" alt="#"></a>
                     </div>
                     <div class="col-lg-4 col-md-3 col-12">
-                        <h5 class="product-name"><a href="{{ route('product.show',$item->slug) }}">
+                        <h5 class="product-name"><a href="{{ route('product.show',$item->product->slug) }}">
                                 {{$item->product->name}}</a></h5>
                         <p class="product-des">
                             <span><em>Type:</em> Mirrorless</span>
@@ -73,7 +73,7 @@
                         </div>
                     </div>
                     <div class="col-lg-2 col-md-2 col-12">
-                        <p>{{ ($item->quantity * $item->product->price) }}</p>
+                        <p>{{ App\Helpers\currency::format(($item->quantity * $item->product->price)) }}</p>
                     </div>
                     <div class="col-lg-2 col-md-2 col-12">
                         <p>$29.00</p>
@@ -108,7 +108,8 @@
                         <div class="col-lg-4 col-md-6 col-12">
                             <div class="right">
                                 <ul>
-                                    {{-- <li>Cart Subtotal<span>{{ App\Helpers\Currency::format($cart->item->total)}}</span></li> --}}
+                                    <li>Cart Subtotal<span>{{ App\Helpers\Currency::format($cart->total())}}</span></li>
+                                    
                                     <li>Shipping<span>Free</span></li>
                                     <li>You Save<span>$29.00</span></li>
                                     <li class="last">You Pay<span>$2531.00</span></li>

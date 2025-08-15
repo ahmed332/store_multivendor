@@ -10,50 +10,52 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Str;
 class CartModelRepository implements CartRepository{
  public function get(){
-     $cart= Cart::with('product')
-    ->where('cookie_id','=',$this->getCookieId())->get();
-    dd($cart);
+    //eggerloading
+     return  Cart::with('product')->get();
  } 
     public function add(Product $product,$quantity){
-        Cart::create( [
-            'cookie_id'=>$this->getCookieId(),
+        $item = Cart::where('product_id','=',$product->id)
+      ->first();  
+      if(!$item){
+         return Cart::create( [
             'user_id'=>Auth::id(),
             'product_id'=>$product->id,
             'quantity'=>$quantity
         ]);
+      }
+    return $item->increment('quantity',$quantity);
+
+       
     }
-    public function update(Product $product ,$quantity){
-      Cart::where('product_id','=',$product->id)
-      ->where('cookie_id','=',$this->getCookieId())
+    public function update($id ,$quantity){
+      Cart::where('id','=',$id)
       ->update([
         'quantity'=>$quantity
       ]);  
     }
     public function delete( $id){
         Cart::where('id','=',$id)
-        ->where('cookie_id','=',$this->getCookieId())
         ->delete();
     }
     public function empty(){
-        Cart::where('cookie_id','=',$this->getCookieId())
-        ->destroy();
+        Cart::quary()->delete();
     }
-    public function total(){
-        //casting any return value to float
-        return (float) Cart::where('cookie_id','=',$this->getCookieId())
-        ->join('products','products.id','=','carts.product_id')
-        ->selectRow('SUM(products.price * carts.quantity) as total')
-        ->value('total');
-    }
+   public function total()
+{
+    return (float) Cart::join('products', 'products.id', '=', 'carts.product_id')
+        ->selectRaw('SUM(products.price * carts.quantity) as total')
+        ->value('total') ?? 0;
+}
 
-    protected function getCookieId(){
-        $cookie_id = Cookie::get('cart_id');
-        if(!$cookie_id){
-            $cookie_id = Str::uuid();
-            // Cookie::queue('cart_id',$cookie_id,Carbon::now()->addDays(30));
-            Cookie::queue('cart_id', $cookie_id, 60 * 24 * 30); // 30 يوم بالدقايق
 
-        }
-        return $cookie_id;
-    }
+    // protected function getCookieId(){
+    //     $cookie_id = Cookie::get('cart_id');
+    //     if(!$cookie_id){
+    //         $cookie_id = Str::uuid();
+    //         // Cookie::queue('cart_id',$cookie_id,Carbon::now()->addDays(30));
+    //         Cookie::queue('cart_id', $cookie_id, 60 * 24 * 30); // 30 يوم بالدقايق
+
+    //     }
+    //     return $cookie_id;
+    // }
 }
