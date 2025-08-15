@@ -68,7 +68,7 @@
                     </div>
                     <div class="col-lg-2 col-md-2 col-12">
                         <div class="count-input">
-                            <input class="form-control" value="{{ $item->quantity }}">
+                            <input class="form-control item-quantity" data-id="{{ $item->id }}" value="{{ $item->quantity }}">
                 
                         </div>
                     </div>
@@ -109,7 +109,7 @@
                             <div class="right">
                                 <ul>
                                     <li>Cart Subtotal<span>{{ App\Helpers\Currency::format($cart->total())}}</span></li>
-                                    
+
                                     <li>Shipping<span>Free</span></li>
                                     <li>You Save<span>$29.00</span></li>
                                     <li class="last">You Pay<span>$2531.00</span></li>
