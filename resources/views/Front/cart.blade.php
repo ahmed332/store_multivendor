@@ -52,7 +52,7 @@
             <!-- End Cart List Title -->
             <!-- Cart Single List list -->
             @foreach ($cart->get() as $item)
-                 <div class="cart-single-list">
+                 <div class="cart-single-list" id= {{ $item->id }}>
                 <div class="row align-items-center">
                     <div class="col-lg-1 col-md-1 col-12">
                         <a href="{{ route('product.show',$item->product->slug) }}">
@@ -79,7 +79,7 @@
                         <p>$29.00</p>
                     </div>
                     <div class="col-lg-1 col-md-2 col-12">
-                        <a class="remove-item" href="javascript:void(0)"><i class="lni lni-close"></i></a>
+                        <a class="remove-item" data-id="{{ $item->id }}" href="javascript:void(0)"><i class="lni lni-close"></i></a>
                     </div>
                 </div>
             </div>
@@ -127,5 +127,14 @@
         </div>
     </div>
 </div>
+    @push('script')
+    <script>
+       const csrf_token = "{{ csrf_token() }}";
+    </script>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="{{ asset('js/cart.js') }}"></script>
+@vite('resources/js/cart.js')
+    @endpush
+    {{-- @vite('resources/js/cart.js') --}}
 <!--/ End Shopping Cart -->
 </x-front-layout >

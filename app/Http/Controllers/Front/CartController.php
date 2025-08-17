@@ -65,14 +65,14 @@ class CartController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, CartRepository $cart)
+    public function update(Request $request, $id)
     {
          $request->validate([
-            'product_id'=>['required','int,exist:product,id'],
-            'quantity'=>['nullable','int','min:1'],
+            // 'product_id'=>['required','int,exist:product,id'],
+            'quantity'=>['required','int','min:1'],
         ]);
-        $product = Product::findOrFail($request->post('product_id'));
-        $cart->update($product,$request->quantity);
+        // $product = Product::findOrFail($request->post('product_id'));
+        $this->cart->update($id,$request->post('quantity'));
     }
 
     /**
