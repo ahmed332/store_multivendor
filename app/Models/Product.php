@@ -13,8 +13,17 @@ use Illuminate\Support\Str;
 class Product extends Model
 {
     use HasFactory;
+    
     protected $fillable = [
-        'name','slug','description','price','compare_price','option','rating','feature','status'.'image','store_id'
+    //     'name','slug','description','price','compare_price','option','rating','feature','status'.'image','store_id'
+    //
+     'name',
+        'price',
+        'category_id',
+        'store_id',
+        'description', ];
+    protected $hidden = [
+        'created_at','updated_at','deleted_at','image'
     ];
  
     public function category(){
@@ -48,6 +57,9 @@ class Product extends Model
 
         //     }
         // });
+        static::creating(function(Product $product){
+            $product->slug=Str::slug($product->name);
+        });
     }
     public function scopeActive(Builder $builder){
         $builder->where('status','=','active');
@@ -65,10 +77,46 @@ class Product extends Model
         }
         return asset('storage/'. $this->image);
     }
+
+    protected $appends=['image_url'];
     public function getSalePercentAttribute(){
         if(!$this->compare_price){
             return 0;
         }
         return  number_format(100 - (100* $this->price / $this->compare_price),1);
     }
+   public function scopeFilter(Builder $builder, $filters)
+{
+    $options = array_merge([
+        'store_id'    => null,
+        'category_id' => null,
+        'tag_id'        => null,
+        'status'      => 'active',
+    ], $filters);
+
+    // فلترة حسب store_id
+    $builder->when($options['store_id'], function ($builder, $value) {
+        $builder->where('store_id', $value);
+    });
+
+    // فلترة حسب category_id
+    $builder->when($options['category_id'], function ($builder, $value) {
+        $builder->where('category_id', $value);
+    });
+
+    // فلترة حسب الحالة (status)
+    $builder->when($options['status'], function ($builder, $value) {
+        $builder->where('status', $value);
+    });
+    $builder->when($options['tag_id'],function($builder,$value){
+         $builder->whereExists(function($quary) use ($value){
+            $query->select(1)
+            ->from('product_tag')
+            ->whereRaw('product_id','products.id')
+            ->where('tag_id',$value);
+     });
+    });
+   
+}
+
 }

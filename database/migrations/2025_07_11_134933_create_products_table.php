@@ -24,7 +24,7 @@ return new class extends Migration
             $table->json('option')->nullable();
             $table->float('rating')->default(0);
             $table->boolean('feature')->default(0);
-            $table->enum('status',['active','draft','archive'])->default('active');
+            $table->enum('status',['active','archive'])->default('active');
             $table->timestamps();
             $table->softDeletes();
         });
