@@ -66,6 +66,7 @@ class Product extends Model
     }
 
     //accssesors
+    //$product->image_url
     public function getImageUrlAttribute(){
         if (!$this->image) {
             return "https://www.google.com/url?sa=i&url=https%3A%2F%2Fmotobros.com%2Fproduct%2Fplatinum-photo-package%2F&psig=AOvVaw2UBSyG7op_KC6aeWysKdDk&ust=1754322208760000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLCNqLDV7o4DFQAAAAAdAAAAABAJ";
@@ -77,8 +78,8 @@ class Product extends Model
         }
         return asset('storage/'. $this->image);
     }
-
-    protected $appends=['image_url'];
+//auto serceh for getimageUrlAttribute
+    protected $appends=['image_url','sale_percent'];
     public function getSalePercentAttribute(){
         if(!$this->compare_price){
             return 0;

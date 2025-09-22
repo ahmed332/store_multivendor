@@ -11,11 +11,15 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
        
-    ) // ✅ قوس الإغلاق هنا مظبوط
+    ) 
     ->withMiddleware(function (Middleware $middleware) {
       $middleware->alias([
             'CheckUserType' => \App\Http\Middleware\CheckUserType::class,
         ]);
+         $middleware->group('api', [
+        \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+        \Illuminate\Routing\Middleware\SubstituteBindings::class,
+    ]);
        
     })
     ->withExceptions(function (Exceptions $exceptions) {
