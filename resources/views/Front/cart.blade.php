@@ -115,7 +115,7 @@
                                     <li class="last">You Pay<span>$2531.00</span></li>
                                 </ul>
                                 <div class="button">
-                                    <a href="checkout.html" class="btn">Checkout</a>
+                                    <a href="/Checkout" class="btn">Checkout</a>
                                     <a href="product-grids.html" class="btn btn-alt">Continue shopping</a>
                                 </div>
                             </div>
@@ -133,6 +133,46 @@
     </script>
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="{{ asset('js/cart.js') }}"></script>
+<script>
+    (function ($) {
+    $('.item-quantity').on('change', function (e) {
+        $.ajax({
+            url: '/cart/' + $(this).data('id'),//data-id
+            method: 'put',
+            data: {
+                quantity: $(this).val(),
+                _token:csrf_token
+            }, 
+            success: function (response) {
+                console.log("Updated successfully ✅", response);
+            },
+            error: function (xhr) {
+                console.error("Error ❌", xhr.responseText);
+            }
+        });
+
+    });
+    $('.remove-item').on('click', function (e) {
+        let id = $(this).data('id');
+        $.ajax({
+            url: '/cart/' + id ,//data-id
+            method: 'DELETE',
+            data: {
+                _token: csrf_token
+            },
+            success: function (response) {
+                $(`#${id}`).remove();
+               
+            },
+            error: function (xhr) {
+                console.error("Error ❌", xhr.responseText);
+            }
+        });
+        
+    });
+})(jQuery);
+
+</script>
 @vite('resources/js/cart.js')
     @endpush
     {{-- @vite('resources/js/cart.js') --}}
