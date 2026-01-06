@@ -134,10 +134,10 @@
                                                 <label>User Name</label>
                                                 <div class="row">
                                                     <div class="col-md-6 form-input form">
-                                                        <input type="text" name="add[billing][first_name]" placeholder="First Name">
+                                                        <input type="text" name="add[shipping][first_name]" placeholder="First Name">
                                                     </div>
                                                     <div class="col-md-6 form-input form">
-                                                        <input type="text" name="add[billing][last_name]" placeholder="Last Name">
+                                                        <input type="text" name="add[shipping][last_name]" placeholder="Last Name">
                                                     </div>
                                                 </div>
                                             </div>

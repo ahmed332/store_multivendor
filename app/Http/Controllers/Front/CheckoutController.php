@@ -42,7 +42,7 @@ class CheckoutController extends Controller
                     'quantity'=>$item->quantity
                 ]);
             }
-            foreach ($request->post('addr') as $type => $address) {
+            foreach ($request->post('add') as $type => $address) {
                 $address['type']= $type;
                 $order->addresses()->create($address);
             }
