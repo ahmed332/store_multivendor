@@ -110,7 +110,7 @@ class Product extends Model
         $builder->where('status', $value);
     });
     $builder->when($options['tag_id'],function($builder,$value){
-         $builder->whereExists(function($quary) use ($value){
+         $builder->whereExists(function($query) use ($value){
             $query->select(1)
             ->from('product_tag')
             ->whereRaw('product_id','products.id')

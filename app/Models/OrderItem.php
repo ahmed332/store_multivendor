@@ -15,6 +15,7 @@ class OrderItem extends Pivot
     //increeminting false
     protected $table = 'order_items';
     public $incrementing = true;
+    public $timestamps = false;
     public function product(){
         return $this->belongsTo(Product::class)->withDefault([
             'name'=>$this->product_name
@@ -23,4 +24,5 @@ class OrderItem extends Pivot
     public function order(){
         return $this->belongsTo(Order::class);
     }
+
 }

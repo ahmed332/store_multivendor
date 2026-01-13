@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Events\OrderCreated;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -9,6 +10,8 @@ use App\Repositories\Cart\CartRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Event;
+use Symfony\Component\Intl\Countries;
 use Throwable;
 
 class CheckoutController extends Controller
@@ -18,19 +21,21 @@ class CheckoutController extends Controller
         return redirect()->route('home');
        }
         return view('Front.checkout',[
-            'cart'=>$cart
+            'cart'=>$cart,
+            'countries'=>Countries::getNames()
         ]);
     }
     public function store(Request $request , CartRepository $cart){
         $request->validate([]);
         $item= $cart->get()->groupBy('product.store_id')->all();
+        // dd($item);
         DB::beginTransaction();
         try{
             foreach ($item as $store_id => $cart_items) {
                 
             
             $order =Order::create([
-                'store_id'=>null,
+                'store_id'=>$store_id,
                 'user_id'=>Auth::id(),
                 'payment_method'=>'cod',
             ]);
@@ -38,6 +43,7 @@ class CheckoutController extends Controller
                 OrderItem::create([
                     'order_id'=>$order->id,
                     'product_id'=>$item->product_id,
+                    'product_name'=>$item->product->name,
                     'price'=>$item->product->price,
                     'quantity'=>$item->quantity
                 ]);
@@ -47,11 +53,19 @@ class CheckoutController extends Controller
                 $order->addresses()->create($address);
             }
         }
-        $cart->empty();
+        // $cart->empty();
+         DB::afterCommit(function () use ($order) {
+            event(new OrderCreated($order));
+        });
             DB::commit();
+            // Event('order.created');
+            // event(new OrderCreated($order));
+
         }
     catch(Throwable $e){
-        DB::rollBack();
+         DB::rollBack();
+        throw $e; 
     }
+    return redirect()->route('home');
 }
 }

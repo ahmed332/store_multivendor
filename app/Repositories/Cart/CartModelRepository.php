@@ -39,7 +39,7 @@ class CartModelRepository implements CartRepository{
         ->delete();
     }
     public function empty(){
-        Cart::quary()->delete();
+        Cart::query()->delete();
     }
    public function total()
 {

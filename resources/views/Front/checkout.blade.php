@@ -51,7 +51,7 @@
                                             <div class="single-form form-default">
                                                 <label>Email Address</label>
                                                 <div class="form-input form">
-                                                    <input type="text" name="add[billing][email]" placeholder="Email Address">
+                                                    <input type="email" name="add[billing][email]" placeholder="Email Address">
                                                 </div>
                                             </div>
                                         </div>
@@ -83,7 +83,7 @@
                                             <div class="single-form form-default">
                                                 <label>Post Code</label>
                                                 <div class="form-input form">
-                                                    <input type="text" name="add[billing][post_code]" placeholder="Post Code">
+                                                    <input type="text" name="add[billing][postal_code]" placeholder="Post Code">
                                                 </div>
                                             </div>
                                         </div>
@@ -91,7 +91,7 @@
                                             <div class="single-form form-default">
                                                 <label>Country</label>
                                                 <div class="form-input form">
-                                                    <input type="text" name="add[billing][country]" placeholder="Country">
+                                                    <x-form.select type="text" name="add[billing][country]" :options="$countries" placeholder="Country" />
                                                 </div>
                                             </div>
                                         </div>
@@ -100,7 +100,7 @@
                                                 <label>Region/State</label>
                                                 <div class="select-items">
                                                     <div class="form-input form">
-                                                        <input type="text" name="add[billing][state]" placeholder="state">
+                                                        <x-form.input type="text" name="add[billing][state]" placeholder="state" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -178,7 +178,7 @@
                                             <div class="single-form form-default">
                                                 <label>Post Code</label>
                                                 <div class="form-input form">
-                                                    <input type="text" name="add[shipping][post_code]" placeholder="Post Code">
+                                                    <input type="text" name="add[shipping][postal_code]" placeholder="Post Code">
                                                 </div>
                                             </div>
                                         </div>
@@ -218,7 +218,7 @@
                                     </div>
                                 </section>
                             </li>
-                            <!-- <li>
+                             <li>
                                 <h6 class="title collapsed" data-bs-toggle="collapse" data-bs-target="#collapsefive"
                                     aria-expanded="false" aria-controls="collapsefive">Payment Info</h6>
                                 <section class="checkout-steps-form-content collapse" id="collapsefive"
@@ -267,7 +267,7 @@
                                         </div>
                                     </div>
                                 </section>
-                            </li> -->
+                            </li> 
                         </ul>
                     </div>
                 </form>

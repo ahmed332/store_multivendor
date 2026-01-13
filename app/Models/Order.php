@@ -10,6 +10,9 @@ class Order extends Model
     protected $fillable =[
         'store_id','user_id','payment_method','status','payment_status'
     ];
+      protected $hidden =['created_at','updated_at'];
+          public $timestamps = true;
+
     public function store(){
         return $this->belongsTo(Store::class);
     }
@@ -23,6 +26,7 @@ class Order extends Model
     public function products(){
         return $this->belongsToMany(Product::class,'order_items','order_id','product_id','id','id')
         ->using(OrderItem::class)
+       
         ->withPivot('product_name','price','quantity');
     }
     public function addresses(){

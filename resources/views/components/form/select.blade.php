@@ -1,5 +1,5 @@
  @props([
- 'name','selected','options'=>'','label'=>''
+ 'name','selected' => '','options'=>'','label'=>''
  ])
  
 <select name="{{$name}}"
