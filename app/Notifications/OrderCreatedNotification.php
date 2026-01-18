@@ -35,10 +35,16 @@ class OrderCreatedNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
+
+        $add = $this->order->billingAddress;
+        $firstName = $add?->first_name ?? 'Customer';
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->subject("New Order #{$this->order->number}")
+                    ->greeting("hi {$notifiable->name}")
+                    ->line("New Order Created {$this->order->number} . created by {$firstName}")
+                    ->action('view order', url('/dashboard'))
+                    ->line('Thank you for using our application!')
+                    ;
     }
 
     /**

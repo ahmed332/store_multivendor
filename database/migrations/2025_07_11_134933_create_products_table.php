@@ -21,6 +21,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->float('price')->default(0);
             $table->float('compare_price')->nullable();
+            $table->unsignedInteger('quantity')->default(10);
+
             $table->json('option')->nullable();
             $table->float('rating')->default(0);
             $table->boolean('feature')->default(0);
