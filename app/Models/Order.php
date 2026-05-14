@@ -42,6 +42,9 @@ class Order extends Model
         return $this->hasOne(OrderAddress::class,'order_id','id')
         ->where('type','=','shipping');
     }
+    public function items(){
+        return $this->hasMany(OrderItem::class,'order_id');
+    }
     protected static function  booted()
     {
         static::creating(function(Order $order){

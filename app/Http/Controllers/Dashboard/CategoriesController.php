@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -16,6 +17,10 @@ class CategoriesController extends Controller
      */
     public function index()
     {
+
+    if(!Gate::allows('categories.view')){
+    abort(403);
+    }
         $request = request();
         $query = Category::query();
        $categories = Category::with('parent')

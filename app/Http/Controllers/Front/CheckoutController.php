@@ -48,7 +48,7 @@ class CheckoutController extends Controller
                     'quantity'=>$item->quantity
                 ]);
             }
-            foreach ($request->post('add') as $type => $address) {
+            foreach ($request->post('addr') as $type => $address) {
                 $address['type']= $type;
                 $order->addresses()->create($address);
             }
@@ -66,6 +66,6 @@ class CheckoutController extends Controller
          DB::rollBack();
         throw $e; 
     }
-    return redirect()->route('home');
+    return redirect()->route('orders.payments.create',$order->id);
 }
 }

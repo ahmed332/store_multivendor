@@ -31,7 +31,7 @@
             <select name="status" class="form-control" id="">
                 <option value="">ALL</option>
                 <option value="active" @selected(request('status')=='active')>active</option>
-                <option value="inactive" @selected(request('status')=='inactive')>inactive</option>
+                <option value="archived" @selected(request('status')=='archived')>archived</option>
             </select>
             <button class="btn btn-dark">filter</button>
     </form>
